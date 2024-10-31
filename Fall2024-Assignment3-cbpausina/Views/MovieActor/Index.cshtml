@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Fall2024_Assignment3_cbpausina.Models.Entities.MovieActor>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Movie-Actor Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table id="movieactorIndex" class="table table-hover">
+    <thead>
+        <tr class="table-primary">
+            <th>
+                @Html.DisplayNameFor(model => model.Movie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Actor)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {   
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Movie.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Actor.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#movieactorIndex').DataTable();
+        });
+    </script>
+}

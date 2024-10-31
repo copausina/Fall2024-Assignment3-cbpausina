@@ -1,4 +1,4 @@
-using Fall2024_Assignment3_cbpausina.Models;
+using Fall2024_Assignment3_cbpausina.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

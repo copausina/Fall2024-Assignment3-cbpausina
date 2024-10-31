@@ -1,0 +1,131 @@
+﻿@model Fall2024_Assignment3_cbpausina.Models.ViewModels.ActorDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Actor</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Actor.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Actor.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Actor.Gender)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Actor.Gender)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Actor.Age)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Actor.Age)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Actor.IMDbLink)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Actor.IMDbLink)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Actor.Photo)
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Actor.Photo != null && Model.Actor.Photo.Length > 0)
+            {
+                var base64 = Convert.ToBase64String(Model.Actor.Photo);
+                var imgSrc = $"data:image/jpg;base64,{base64}";
+                <img src="@imgSrc" width="100" height="100" />
+
+                //<img src="@Url.Action("GetMoviePoster", "Movie", new { Model.Id })" width="100" height="100" />
+            }
+            else
+            {
+                <p>No photo available.</p>
+                // If no photo, display this message instead
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Actor.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+<h5 class="text-center mt-5">Movies</h5>
+<table id="movies" class="table">
+    <thead>
+        <tr class="table-primary">
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model.Movies)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-controller="Movie" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-controller="Movie" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-controller="Movie" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<h5 class="text-center mt-5">Tweets</h5>
+@{
+    if (Model.Actor.TweetSentiment.Count > Model.Actor.Tweets.Count)
+    {
+        <h6>Overall sentiment of tweets: @Model.Actor.TweetSentiment[Model.Actor.Tweets.Count]</h6>
+    }
+}
+
+<table id="tweets" class="table">
+    <thead class="table-primary">
+        <tr>
+            <th>Username</th>
+            <th>Tweet</th>
+            <th>Sentiment Analysis</th>
+        </tr>
+    </thead>
+    <tbody>
+@*          @foreach (var tweet in Model.Actor.Tweets)
+         {
+             <tr>
+                 <td>@tweet.Username</td>
+                 <td>@tweet.Text</td>
+                 <td><p>0</p></td> <!-- Placeholder for sentiment analysis -->
+             </tr>
+         } *@
+
+        @for (int j = 0; j < Model.Actor.Tweets.Count; j++)
+        {
+            <tr>
+                <td>@Model.Actor.Tweets[j].Username</td>
+                <td>@Model.Actor.Tweets[j].Text</td>
+                <td>@Model.Actor.TweetSentiment[j]</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#movies').DataTable();
+        });
+        $(document).ready(function () {
+            $('#tweets').DataTable();
+        });
+    </script>
+}

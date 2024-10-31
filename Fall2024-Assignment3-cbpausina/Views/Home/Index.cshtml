@@ -3,6 +3,21 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4 my-4">Welcome to AIMDb</h1>
+    <p class="my-3">An interactive database of movies and actors. View information about your favorite films and film stars, see who starred in what, and browse relevant reviews and tweets.</p>
+    <h3 class ="my-4">User Sumbissions</h3>
+    <p>If we're missing any movies or actors, you can add them to the database yourself!</p>
+    @* div to center (horizontally) and space the buttons *@
+    <div class="d-flex justify-content-center gap-3"> 
+        <form asp-area="" asp-controller="Movie" asp-action="Create" method="get" style="display:inline;">
+            <button type="submit" class="btn btn-secondary">Add a Movie</button>
+        </form>
+        <form asp-area="" asp-controller="Actor" asp-action="Create" method="get" style="display:inline;">
+            <button type="submit" class="btn btn-secondary">Add an Actor</button>
+        </form>
+        <form asp-area="" asp-controller="MovieActor" asp-action="Create" method="get" style="display:inline;">
+            <button type="submit" class="btn btn-secondary">Add a Movie-Actor relationship</button>
+        </form>
+    </div>
+
 </div>

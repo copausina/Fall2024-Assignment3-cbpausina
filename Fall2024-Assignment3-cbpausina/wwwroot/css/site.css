@@ -20,3 +20,12 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+main {
+    padding-top: 35px;
+}
+
+/* Alternating row colors for DataTables */
+table.dataTable tbody tr.even {
+    background-color: #170229; /* same color as table-dark class from vapor theme */
+}

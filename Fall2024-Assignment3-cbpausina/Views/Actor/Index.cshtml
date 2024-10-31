@@ -1,0 +1,133 @@
+﻿@model IEnumerable<Fall2024_Assignment3_cbpausina.Models.Entities.Actor>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Actor Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table id="actorsIndex" class="table table-hover">
+    <thead>
+        <tr class="table-primary">
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Photo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IMDbLink)
+            </th>
+            @* <th>
+            @Html.DisplayNameFor(model => model.Photo)
+            </th> *@
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @if (item.Photo != null && item.Photo.Length > 0)
+                    {
+                        var base64 = Convert.ToBase64String(item.Photo);
+                        var imgSrc = $"data:image/jpg;base64,{base64}";
+                        <img src="@imgSrc" width="100" height="100" />
+
+                        //<img src="@Url.Action("GetMoviePoster", "Movie", new { Model.Id })" width="100" height="100" />
+                    }
+                    else
+                    {
+                        <p>No photo available.</p>
+                        // If no photo, display this message instead
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IMDbLink)
+                </td>
+                @* <td>
+            @Html.DisplayFor(modelItem => item.Poster)
+            </td> *@
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@*<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IMDbLink)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Photo)
+            </th> 
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IMDbLink)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Photo)
+            </td> 
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>*@
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#actorsIndex').DataTable();
+        });
+    </script>
+}
